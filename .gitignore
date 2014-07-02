@@ -37,5 +37,6 @@ Icon
 
 *.exe
 *.suo
-StaticAPI/StaticAPI/bin/Debug/StaticAPI.exe.config
 *.pdb
+*.exe.config
+*/bin
