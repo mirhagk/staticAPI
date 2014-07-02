@@ -34,3 +34,8 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
+
+*.exe
+*.suo
+StaticAPI/StaticAPI/bin/Debug/StaticAPI.exe.config
+*.pdb
