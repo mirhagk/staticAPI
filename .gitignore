@@ -41,3 +41,4 @@ Icon
 *.exe.config
 [Bb]in/
 [Oo]bj/
+*.suo
