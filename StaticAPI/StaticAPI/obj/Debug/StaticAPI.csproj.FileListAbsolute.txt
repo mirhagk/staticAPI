@@ -1,6 +1,0 @@
-C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\bin\Debug\StaticAPI.exe.config
-C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\bin\Debug\StaticAPI.exe
-C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\bin\Debug\StaticAPI.pdb
-C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\obj\Debug\StaticAPI.csprojResolveAssemblyReference.cache
-C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\obj\Debug\StaticAPI.exe
-C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\obj\Debug\StaticAPI.pdb
