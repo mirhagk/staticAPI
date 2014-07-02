@@ -39,4 +39,5 @@ Icon
 *.suo
 *.pdb
 *.exe.config
-*/bin
+[Bb]in/
+[Oo]bj/
