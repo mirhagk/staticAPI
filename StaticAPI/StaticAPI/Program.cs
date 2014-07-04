@@ -14,9 +14,11 @@ namespace StaticAPI
             var file = args[0];
             Console.WriteLine(file);
             var assembly = Assembly.LoadFrom(file);
-            
-            foreach (var type in assembly.GetTypes().Where(t=>t.Name.EndsWith("Controller")))
-                Console.WriteLine("{0} {1}", type.Name, type);
+            var t4 = new API();
+            t4.Controllers = assembly.GetTypes().Where(t => t.Name.EndsWith("Controller"));
+            Console.WriteLine(t4.TransformText());
+            //foreach (var type in t4.Controllers)
+            //    Console.WriteLine("{0} {1}", type.Name, type);
             Console.ReadKey();
         }
     }
