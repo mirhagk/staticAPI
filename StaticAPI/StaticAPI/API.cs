@@ -35,16 +35,37 @@ foreach(var controller in this.Controllers){
             
             #line default
             #line hidden
-            this.Write("\t");
+            this.Write("class ");
             
             #line 9 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(controller.Name));
             
             #line default
             #line hidden
-            this.Write("\r\n");
+            this.Write("{\r\n");
             
             #line 10 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+foreach(var method in GetMethods(controller)){
+            
+            #line default
+            #line hidden
+            this.Write("\t");
+            
+            #line 11 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
+            
+            #line default
+            #line hidden
+            this.Write("(){\r\n\t}\r\n");
+            
+            #line 13 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("\t\r\n}\r\n");
+            
+            #line 15 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 }
             
             #line default

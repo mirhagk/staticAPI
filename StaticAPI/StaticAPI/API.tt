@@ -6,5 +6,10 @@
 
 
 <#foreach(var controller in this.Controllers){#>
-	<#=controller.Name#>
+class <#=controller.Name#>{
+<#foreach(var method in GetMethods(controller)){#>
+	<#=method.Name#>(){
+	}
+<#}#>	
+}
 <#}#>
