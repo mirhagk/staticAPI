@@ -28,48 +28,50 @@ namespace StaticAPI
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n\r\n");
+            this.Write("module Server{\r\n\texport module Ajax{\r\n\t\texport function Post(){\r\n\t\t}\r\n\t\texport fu" +
+                    "nction Get(){\r\n\t\t}\r\n\t}\r\n");
             
-            #line 8 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 13 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 foreach(var controller in this.Controllers){
             
             #line default
             #line hidden
-            this.Write("class ");
+            this.Write("\texport module ");
             
-            #line 9 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 14 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(controller.Name));
             
             #line default
             #line hidden
             this.Write("{\r\n");
             
-            #line 10 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 15 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 foreach(var method in GetMethods(controller)){
             
             #line default
             #line hidden
-            this.Write("\t");
+            this.Write("\t\texport function ");
             
-            #line 11 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 16 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
             
             #line default
             #line hidden
-            this.Write("(){\r\n\t}\r\n");
+            this.Write("(){\r\n\t\t}\r\n");
             
-            #line 13 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 }
             
             #line default
             #line hidden
-            this.Write("\t\r\n}\r\n");
+            this.Write("\t\r\n\t}\r\n");
             
-            #line 15 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 }
             
             #line default
             #line hidden
+            this.Write("}");
             return this.GenerationEnvironment.ToString();
         }
     }
