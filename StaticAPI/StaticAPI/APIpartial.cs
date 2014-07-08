@@ -10,14 +10,19 @@ namespace StaticAPI
     partial class API
     {
         public IEnumerable<Type> Controllers { get; set; }
-        public MethodInfo[] GetMethods(Type controller)
+        public IEnumerable<MethodInfo> GetMethods(Type controller)
         {
             return controller.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
+        }
+        public string TypescriptType(Type type)
+        {
+            return "unknown";
         }
         private void Playground()
         {
             var methods = this.Controllers.First().GetMethods(System.Reflection.BindingFlags.DeclaredOnly);
-            //methods.First().Name
+            var param = methods.First().GetParameters().First();
+            //param.ParameterType
         }
     }
 }

@@ -3,6 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
 module Server{
 	export module Ajax{
 		export function Post(){
@@ -11,11 +12,18 @@ module Server{
 		}
 	}
 <#foreach(var controller in this.Controllers){#>
-	export module <#=controller.Name#>{
-<#foreach(var method in GetMethods(controller)){#>
-		export function <#=method.Name#>(){
+	export module <#=controller.Name#>{<#
+	foreach(var method in GetMethods(controller)){#>
+		export function <#=method.Name#>(<#=string.Join(", ",method.GetParameters().Select(p=>ParamDefinition(p)))#>){
 		}
-<#}#>	
+<#	}#>	
 	}
 <#}#>
 }
+
+<#+
+string ParamDefinition(ParameterInfo param)
+{
+	return param.Name + " : " + param.ParameterType.Name + (param.IsOptional?"?":"");
+}
+#>
