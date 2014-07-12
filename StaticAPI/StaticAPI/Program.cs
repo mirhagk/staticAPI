@@ -12,11 +12,12 @@ namespace StaticAPI
     {
         static void Main(string[] args)
         {
-            var file = args[0];
-            var assembly = Assembly.LoadFrom(file);
+            var input = args[0];
+            var output = args.Length > 1 ? args[1] : "API.ts";
+            var assembly = Assembly.LoadFrom(input);
             var t4 = new API();
             t4.Controllers = assembly.GetTypes().Where(t => t.Name.EndsWith("Controller"));
-            File.WriteAllText("API.ts", t4.TransformText());
+            File.WriteAllText(output, t4.TransformText());
         }
     }
 }
