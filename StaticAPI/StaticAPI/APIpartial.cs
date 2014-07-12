@@ -19,7 +19,7 @@ namespace StaticAPI
         {
             return controller.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
         }
-        public List<string> UnrecognizedTypes = new List<string>();
+        public List<Type> CustomTypes = new List<Type>();
         public string TypescriptType(Type type)
         {
             if (type == typeof(int)
@@ -34,7 +34,7 @@ namespace StaticAPI
                 return "number";
             if (type == typeof(void))
                 return "void";
-            if (type == typeof(string) || type == typeof(long))
+            if (type == typeof(string) || type == typeof(long) || type == typeof(Guid))
                 return "string";
             if (type == typeof(object))
                 return "Object";
@@ -44,17 +44,26 @@ namespace StaticAPI
 
             if (ienumerableInterfaces.Any())
             {
-                if (ienumerableInterfaces.Count()>1)
+                if (ienumerableInterfaces.Count() > 1)
                 {
                     if (multipleInterfaceSetting == MultipleInterfaceSetting.TreatAsAny)
                         return "any";
                     throw new NotImplementedException();
                 }
-                return TypescriptType(ienumerableInterfaces.First().GetGenericArguments().First()) + "[]";
+                return TypescriptType(type.GetGenericArguments().First()) + "[]";
+                //TODO Not sure if the above is the correct way to determine the type
+                //return TypescriptType(ienumerableInterfaces.First().GetGenericArguments().First()) + "[]";
             }
 
-            if (!UnrecognizedTypes.Contains(type.Name))
-                UnrecognizedTypes.Add(type.Name);
+            //Record this type so that we can generate an interface for it later
+            if (!CustomTypes.Contains(type))
+                CustomTypes.Add(type);
+            if (type.IsGenericType)
+            {
+                return type.Name.Substring(0, type.Name.Length - 2) + "<" +
+                    string.Join(",", type.GetGenericArguments().Select(t => TypescriptType(t))) + ">";
+            }
+            //Must be a non-generic custom type, just return the name
             return type.Name;
         }
         private void Playground()

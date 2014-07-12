@@ -88,17 +88,10 @@ foreach(var controller in this.Controllers){
             #line default
             #line hidden
             this.Write("}\r\n");
-            
-            #line 23 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",UnrecognizedTypes)));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 24 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+        #line 23 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 
 string ParamDefinition(ParameterInfo param)
 {
