@@ -52,21 +52,28 @@ foreach(var controller in this.Controllers){
             
             #line default
             #line hidden
-            this.Write("\t\texport function ");
+            this.Write("\r\n\t\texport function ");
             
-            #line 17 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 17 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ",method.GetParameters().Select(p=>ParamDefinition(p)))));
             
             #line default
             #line hidden
-            this.Write("){\r\n\t\t}\r\n");
+            this.Write(") : ");
+            
+            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TypescriptType(method.ReturnType)));
+            
+            #line default
+            #line hidden
+            this.Write(" {\r\n\t\t}");
             
             #line 19 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 	}
@@ -80,7 +87,14 @@ foreach(var controller in this.Controllers){
             
             #line default
             #line hidden
-            this.Write("}\r\n\r\n");
+            this.Write("}\r\n");
+            
+            #line 23 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",",UnrecognizedTypes)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -88,7 +102,7 @@ foreach(var controller in this.Controllers){
 
 string ParamDefinition(ParameterInfo param)
 {
-	return param.Name + " : " + param.ParameterType.Name + (param.IsOptional?"?":"");
+	return param.Name + " : " + TypescriptType(param.ParameterType) + (param.IsOptional?"?":"");
 }
 
         

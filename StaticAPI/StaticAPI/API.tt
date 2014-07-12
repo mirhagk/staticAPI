@@ -14,16 +14,16 @@ module Server{
 <#foreach(var controller in this.Controllers){#>
 	export module <#=controller.Name#>{<#
 	foreach(var method in GetMethods(controller)){#>
-		export function <#=method.Name#>(<#=string.Join(", ",method.GetParameters().Select(p=>ParamDefinition(p)))#>){
-		}
-<#	}#>	
+
+		export function <#=method.Name#>(<#=string.Join(", ",method.GetParameters().Select(p=>ParamDefinition(p)))#>) : <#=TypescriptType(method.ReturnType)#> {
+		}<#	}#>	
 	}
 <#}#>
 }
-
+<#=string.Join(",",UnrecognizedTypes)#>
 <#+
 string ParamDefinition(ParameterInfo param)
 {
-	return param.Name + " : " + param.ParameterType.Name + (param.IsOptional?"?":"");
+	return param.Name + " : " + TypescriptType(param.ParameterType) + (param.IsOptional?"?":"");
 }
 #>
