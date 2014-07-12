@@ -5,10 +5,11 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Reflection" #>
 module Server{
+	export string URL;
 	export module Ajax{
-		export function Post(){
+		export function Post(url, params, data){
 		}
-		export function Get(){
+		export function Get(url params){
 		}
 	}
 <#foreach(var controller in this.Controllers){#>
@@ -16,6 +17,7 @@ module Server{
 	foreach(var method in GetMethods(controller)){#>
 
 		export function <#=method.Name#>(<#=string.Join(", ",method.GetParameters().Select(p=>ParamDefinition(p)))#>) : <#=TypescriptType(method.ReturnType)#> {
+			return <Promise<<#=TypescriptType(method.ReturnType)#>>>Ajax.<#=GetHttpMethod(method)#>(Server.URL+"/<#=controller.Name#>/<#=method.Name#>", <#=GetParams(method)#><#=HasDataPart(method)?","+GetData(method):""#>);
 		}<#	}#>	
 	}
 <#}#>

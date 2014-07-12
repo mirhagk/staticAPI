@@ -29,24 +29,24 @@ namespace StaticAPI
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("module Server{\r\n\texport module Ajax{\r\n\t\texport function Post(){\r\n\t\t}\r\n\t\texport fu" +
-                    "nction Get(){\r\n\t\t}\r\n\t}\r\n");
+            this.Write("module Server{\r\n\texport string URL;\r\n\texport module Ajax{\r\n\t\texport function Post" +
+                    "(url, params, data){\r\n\t\t}\r\n\t\texport function Get(url params){\r\n\t\t}\r\n\t}\r\n");
             
-            #line 14 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 15 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 foreach(var controller in this.Controllers){
             
             #line default
             #line hidden
             this.Write("\texport module ");
             
-            #line 15 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 16 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(controller.Name));
             
             #line default
             #line hidden
             this.Write("{");
             
-            #line 15 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 16 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 
 	foreach(var method in GetMethods(controller)){
             
@@ -54,35 +54,76 @@ foreach(var controller in this.Controllers){
             #line hidden
             this.Write("\r\n\t\texport function ");
             
-            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 19 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 19 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ",method.GetParameters().Select(p=>ParamDefinition(p)))));
             
             #line default
             #line hidden
             this.Write(") : ");
             
-            #line 18 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 19 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TypescriptType(method.ReturnType)));
             
             #line default
             #line hidden
-            this.Write(" {\r\n\t\t}");
+            this.Write(" {\r\n\t\t\treturn <Promise<");
             
-            #line 19 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(TypescriptType(method.ReturnType)));
+            
+            #line default
+            #line hidden
+            this.Write(">>Ajax.");
+            
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetHttpMethod(method)));
+            
+            #line default
+            #line hidden
+            this.Write("(Server.URL+\"/");
+            
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(controller.Name));
+            
+            #line default
+            #line hidden
+            this.Write("/");
+            
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(method.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\", ");
+            
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetParams(method)));
+            
+            #line default
+            #line hidden
+            
+            #line 20 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HasDataPart(method)?","+GetData(method):""));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n\t\t}");
+            
+            #line 21 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 	}
             
             #line default
             #line hidden
             this.Write("\t\r\n\t}\r\n");
             
-            #line 21 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+            #line 23 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 }
             
             #line default
@@ -91,7 +132,7 @@ foreach(var controller in this.Controllers){
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 23 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
+        #line 25 "C:\git\staticAPI\staticAPI\StaticAPI\StaticAPI\API.tt"
 
 string ParamDefinition(ParameterInfo param)
 {

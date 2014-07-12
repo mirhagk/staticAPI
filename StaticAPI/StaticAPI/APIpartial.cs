@@ -19,6 +19,24 @@ namespace StaticAPI
         {
             return controller.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
         }
+        public string GetHttpMethod(MethodInfo method)
+        {
+            return "Get";
+        }
+        public bool HasDataPart(MethodInfo method)
+        {
+            if (GetHttpMethod(method) == "Post")
+                return true;
+            return false;
+        }
+        public string GetParams(MethodInfo method)
+        {
+            return "[" + string.Join(",", method.GetParameters().Select(p => p.Name)) + "]";
+        }
+        public string GetData(MethodInfo method)
+        {
+            throw new NotImplementedException();
+        }
         public List<Type> CustomTypes = new List<Type>();
         public string TypescriptType(Type type)
         {
