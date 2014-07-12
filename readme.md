@@ -9,8 +9,9 @@ This allows you to take advantage of static typing across the web, and refactor 
 Status
 ----
 
-This project is in the experimental phase, with a prototype currently being developed. Hopefully soon an alpha version can be released which should be mostly functional.
+The project can successfully take a dll and convert it to a typescript definition. It does not generate the code to actually make the server call yet, nor does it generate interfaces for custom types (you could provide your own now, or just treat them as any).
 
+The project is nearing a usable state, and an alpha will be made available soon.
 Use
 ----
 
